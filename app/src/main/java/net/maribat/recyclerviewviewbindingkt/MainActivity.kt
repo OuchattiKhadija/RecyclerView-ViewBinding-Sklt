@@ -1,7 +1,9 @@
 package net.maribat.recyclerviewviewbindingkt
 
+import android.icu.text.DateTimePatternGenerator.PatternInfo.OK
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,9 +44,44 @@ class MainActivity : AppCompatActivity() {
 
         rvAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(language: Language?) {
-                Toast.makeText(this@MainActivity,language?.name +" " + language?.exp ,Toast.LENGTH_SHORT).show();
+              /*  Toast.makeText(
+                    this@MainActivity,
+                    language?.name + " " + language?.exp,
+                    Toast.LENGTH_SHORT
+                ).show();*/
+
+                openDialog(language)
             }
         })
+    }
+
+    private fun openDialog(language: Language?) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Alert")
+        builder.setMessage("Clicked item is" + language?.name)
+        //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
+
+        builder.setPositiveButton(android.R.string.ok) { dialog, which ->
+            Toast.makeText(
+                applicationContext,
+                android.R.string.yes, Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        builder.setNegativeButton(android.R.string.cancel) { dialog, which ->
+            Toast.makeText(
+                applicationContext,
+                android.R.string.no, Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        builder.setNeutralButton("custom") { dialog, which ->
+            Toast.makeText(
+                applicationContext,
+                "Custom", Toast.LENGTH_SHORT
+            ).show()
+        }
+        builder.show()
     }
 
     // add items to the list manually in our case
