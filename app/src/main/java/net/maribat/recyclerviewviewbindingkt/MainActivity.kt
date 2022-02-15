@@ -1,6 +1,6 @@
 package net.maribat.recyclerviewviewbindingkt
 
-import android.icu.text.DateTimePatternGenerator.PatternInfo.OK
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -44,11 +44,11 @@ class MainActivity : AppCompatActivity() {
 
         rvAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(language: Language?) {
-              /*  Toast.makeText(
-                    this@MainActivity,
-                    language?.name + " " + language?.exp,
-                    Toast.LENGTH_SHORT
-                ).show();*/
+                /*  Toast.makeText(
+                      this@MainActivity,
+                      language?.name + " " + language?.exp,
+                      Toast.LENGTH_SHORT
+                  ).show();*/
 
                 openDialog(language)
             }
@@ -75,11 +75,14 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
 
-        builder.setNeutralButton("custom") { dialog, which ->
+        builder.setNeutralButton("GoToCustomDialog") { dialog, which ->
             Toast.makeText(
                 applicationContext,
                 "Custom", Toast.LENGTH_SHORT
             ).show()
+
+            val intent = Intent(this, CustomDialogActivity::class.java)
+            startActivity(intent)
         }
         builder.show()
     }
